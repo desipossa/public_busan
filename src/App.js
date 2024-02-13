@@ -12,14 +12,15 @@ const App = () => {
     const [data, setData] = useState([]);
     const [gugunName, setGugunName] = useState([]);
 
+    const key = `nmPIjJ%2Bj0FufPiP6k4BLPlq3n%2B46QZN%2B6hgSINrrxqk3nNwnoHX2ynqX6Dlgr3xFeivGPus2vgmh6Ifx1vdu1g%3D%3D`
+
     const getData = async () => {
-        const r = await axios.get('https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=nmPIjJ%2Bj0FufPiP6k4BLPlq3n%2B46QZN%2B6hgSINrrxqk3nNwnoHX2ynqX6Dlgr3xFeivGPus2vgmh6Ifx1vdu1g%3D%3D&pageNo=1&numOfRows=260&resultType=JSON');
-        //console.log(r.data.getFoodKr.item[0].GUGUN_NM);
-        setData(r.data.getFoodKr.item);
-        const GG = r.data.getFoodKr.item.map(it => it.GUGUN_NM);
-        const GG_LIST = [...new Set(GG)];
-        console.log(GG_LIST);
-        setGugunName(GG_LIST);
+        const r = await axios.get(`https://apis.data.go.kr/6260000/FoodService/getFoodKr?serviceKey=${key}&pageNo=1&numOfRows=260&resultType=JSON`);
+        const d = await r.data.getFoodKr.item;
+        setData(d);
+        const gg = d.map(it => it.GUGUN_NM);
+        const gg_list = [...new Set(gg)];
+        setGugunName(gg_list);
     }
 
 
