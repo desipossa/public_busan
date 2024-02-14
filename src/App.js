@@ -7,6 +7,9 @@ import AllList from "./AllList";
 
 import './reset.scss';
 import './common.scss';
+import './style.scss';
+import Search from "./Search";
+import SearchResurt from "./SearchResurt";
 
 const App = () => {
     const [data, setData] = useState([]);
@@ -21,18 +24,28 @@ const App = () => {
         const gg = d.map(it => it.GUGUN_NM);
         const gg_list = [...new Set(gg)];
         setGugunName(gg_list);
+        //console.log(d);
     }
 
 
 
     useEffect(() => {
         getData();
-    }, [])
+    }, []);
+
+
 
 
     return (
         <div>
-            <h1><Link to={`/`}>부산맛집</Link></h1>
+            <h1>
+                <Link to={`/`}>
+                    부산맛집
+                    <img src={`${process.env.PUBLIC_URL}/images/logo.jpg`} alt="" />
+                </Link>
+            </h1>
+            <Search />
+            {/* <div className="bg"></div> */}
             <nav className="gnb">
                 <ul>
                     {
@@ -49,6 +62,7 @@ const App = () => {
 
             <Routes>
                 <Route path="/" element={<AllList data={data} />} />
+                <Route path="/search" element={<SearchResurt data={data} />} />
                 <Route path="/gu/:gugun" element={<Gugun data={data} />} />
                 <Route path="/:itm" element={<Itm data={data} />} />
             </Routes>
